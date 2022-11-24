@@ -12,16 +12,14 @@ const cors = require('cors')
 app.use(express.json())
 
 app.use(
-    cors({
-        origin: "*",
-    })
+    cors()
 )
 
 mongoose.connect(process.env.DATABASE_URL)
 
 
 //Get Request
-app.get("/getEvents", (req, res) => {
+app.get("/getEvents", cors(), (req, res) => {
 
     EventModel.find({}, (err, result) => {
         if (err) {
@@ -34,7 +32,7 @@ app.get("/getEvents", (req, res) => {
 
 
 //Post Request
-app.post("/createEvent", async (req, res) => {
+app.post("/createEvent", cors(), async (req, res) => {
     const event = req.body
     const newEvent = new EventModel(event)
     await newEvent.save()
@@ -43,7 +41,7 @@ app.post("/createEvent", async (req, res) => {
 })
 
 //#region Update Requests
-app.put("/updateEventName", async (req, res) => {
+app.put("/updateEventName", cors(), async (req, res) => {
     const newEventName = req.body.newEventName;
     const id = req.body.id;
     try {
@@ -58,7 +56,7 @@ app.put("/updateEventName", async (req, res) => {
 })
 
 
-app.put("/updateparticipants", async (req, res) => {
+app.put("/updateparticipants", cors(), async (req, res) => {
     const newParticipants = req.body.newParticipants;
     const id = req.body.id;
     try {
@@ -72,7 +70,7 @@ app.put("/updateparticipants", async (req, res) => {
     res.send("Updated");
 })
 
-app.put("/updatedescription", async (req, res) => {
+app.put("/updatedescription", cors(), async (req, res) => {
     const newDescription = req.body.newDescription;
     const id = req.body.id;
     try {
@@ -88,7 +86,7 @@ app.put("/updatedescription", async (req, res) => {
 
 //#endregion
 
-app.delete('/deleteEvent/:id', async (req, res) => {
+app.delete('/deleteEvent/:id', cors(), async (req, res) => {
     const id = req.params.id
     await EventModel.findByIdAndRemove(id).exec();
     res.send("Event Deleted")
