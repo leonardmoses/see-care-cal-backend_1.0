@@ -10,10 +10,12 @@ const EventModel = require('./models/events')
 const cors = require('cors')
 
 app.use(express.json())
-app.use(cors({
-    origin: "*",
-    method: ["GET", "POST", "PUT", "DELETE"]
-}));
+
+app.use(
+    cors({
+        origin: "*",
+    })
+)
 
 mongoose.connect(process.env.DATABASE_URL)
 
@@ -21,7 +23,6 @@ mongoose.connect(process.env.DATABASE_URL)
 //Get Request
 app.get("/getEvents", (req, res) => {
 
-    
     EventModel.find({}, (err, result) => {
         if (err) {
             res.json(err)
