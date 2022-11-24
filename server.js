@@ -12,7 +12,9 @@ const cors = require('cors')
 app.use(express.json())
 
 app.use(
-    cors()
+    cors({
+        origin: "*"
+    })
 )
 
 mongoose.connect(process.env.DATABASE_URL)
