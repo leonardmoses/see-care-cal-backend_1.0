@@ -12,6 +12,7 @@ const cors = require('cors')
 app.use(express.json())
 app.use(cors({
     origin: "*",
+    method: ["GET", "POST", "PUT", "DELETE"]
 }));
 
 mongoose.connect(process.env.DATABASE_URL)
