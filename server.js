@@ -39,7 +39,8 @@ app.post("/createEvent", cors(), async (req, res) => {
     const newEvent = new EventModel(event)
     await newEvent.save()
 
-    res.json(event)
+    // res.json(event)
+    res.json(newEvent)
 })
 
 //#region Update Requests
